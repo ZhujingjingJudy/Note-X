@@ -7,7 +7,7 @@ Music API: https://github.com/cuthbertLab/music21.git
 
 ## Story Map
 
-![story map](./fig/story_map)
+![story map](./fig/story_map.jpg)
 
 ## Component List
 
