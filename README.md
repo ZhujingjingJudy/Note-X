@@ -76,7 +76,8 @@ flowchart TD
 | Key        | Location | Type   | Description      |
 | ---------- | -------- | ------ | ---------------- |
 | `username` | Session Cookie| String | Current User |
-| `upload_file` | Body | File | Audio file uploaded by User |
+| `upload_audio_file` | Body | File | Audio file uploaded by User |
+| `upload_audio_type` | Body | String | Type of the Audio File(e.g., mp3, wav) |
 | `audio_process` | Body | Bool | Begin to process audio file |
 | `editing_transcription` | Body | JSON | Editing Actions and Position |
 | `output_format` | Body | String | Desired output format(e.g., PDF) |
