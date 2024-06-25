@@ -1,5 +1,7 @@
 # Getting Started
+Spleeter API: https://github.com/deezer/spleeter.git
 
+Music API: https://github.com/cuthbertLab/music21.git
 # Model and Engine
 
 # APIs and Controller
@@ -70,3 +72,14 @@ curl -b cookies.txt -c cookies.txt -X GET https://OUR_SERVER/recommendations/'
 # View UI/UX
 
 # Team Roster
+Lingyu Qi: Project Management and UI-Interface Design
+
+Yifan Jia: Database Management
+
+Marco Souza: Front-end Design and Development
+
+Yue Huang: Audio Processing
+
+Jingjing Zhu: Sheet Music Transcribing Algorithm Design
+
+Shuangyu Lei: Pitch Detection
