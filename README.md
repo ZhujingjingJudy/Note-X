@@ -71,24 +71,6 @@ flowchart TD
 
 
 # APIs and Controller
-upload audio file
-format conversion
-pre-processing(noise reduction)
-
-?
-separate vocal and accompaniment 
-pitch detection
-
----
-convert audio data into sheet music
-generate sheet music and support edit it on ui real time audio output
-
-output pdf format/other
-save and share the sheet music
-
-process audio and convert it into sheet music, display result notation w/ accurate pitch and rhythm allow user to preview and edit transcription
-sheet music editing interface:
-add, delete, modify notes directly, change updated in real time
 
 **Request Parameters**
 | Key        | Location | Type   | Description      |
