@@ -2,7 +2,73 @@
 Spleeter API: https://github.com/deezer/spleeter.git
 
 Music API: https://github.com/cuthbertLab/music21.git
+
 # Model and Engine
+
+## Story Map
+
+![story map](./fig/story_map)
+
+## Component List
+
+1. Front End
+   - **User Interface (UI)**: Provides a user-friendly interface for uploading audio files and editing sheet music.
+   - **Audio File Upload**: Allows users to upload their audio files for processing.
+   - **Sheet Music Editor**: Enables users to edit and view generated sheet music.
+2. Back End
+   - **Audio Processing API**: Manages the audio processing tasks such as pitch detection and track separation.
+   - **User Management**: Handles user authentication, authorization, and profile management.
+   - **Data Storage**: Manages the storage and retrieval of user data, audio files, and generated scores.
+3. Audio Processing Service
+   - **Audio Preprocessing**: Prepares the audio file for further analysis by normalizing and filtering.
+   - **Pitch Detection**: Identifies the pitch of the audio signals.
+   - **Vocal and Accompaniment Separation**: Separates the vocal track from the accompaniment using Spleeter.
+4. Score Generation Service
+   - **Convert Pitch Data to Sheet Music**: Uses pitch data to create musical notation.
+   - **Export Sheet Music**: Provides options to export the generated sheet music in various formats.
+5. Database
+   - **User Data Storage**: Stores user information such as credentials and profile data.
+   - **Audio and Score Data** Storage: Manages the storage of audio files and generated sheet music.
+6. Third-Party Libraries and Tools
+   - **Spleeter**: Used for separating vocal and accompaniment tracks.
+   - **YIN/CREPE**: Employed for accurate pitch detection.
+   - **Music21**: Utilized for generating and manipulating sheet music.
+   - **React/Vue**: Front-end development frameworks.
+   - **Node.js/Express**: Back-end development frameworks.
+   - **MongoDB/PostgreSQL**: Databases for data storage.
+
+```mermaid
+flowchart TD
+  A[User Interface] --> B[Front End] --> C[Back End];
+  C --> E[Audio Processing Service] --> F[Pitch Detection & Separation] --> G[Sleepter API] --> H[Database];
+  C --> E1[Score Generation Service] --> F1[Convert to Sheet Music] --> G1[music21 API] --> H;
+```
+
+## Data and Control Flow
+
+![engine architecture](./fig/engine_arch.png)
+
+### Implementation Plan
+
+1. Front End
+   - **Functionality**: User interface for audio file upload and sheet music editing.
+   - **Implementation**: Developed with React.js or Vue.js for a responsive UI.
+2. Back End
+   - **Functionality**: Manages server-side operations and API communication.
+   - **Implementation**: Built with Node.js and Express.js for handling requests and routing.
+3. Score Generation Handler
+   - **Functionality**: Converts audio data into musical scores.
+   - **Implementation**: Integrates with Music21 API to generate sheet music from pitch data.
+4. Music21 API
+   - **Functionality**: Provides tools for music analysis and score generation.
+   - **Implementation**: Uses Python scripts to interface with Music21 for score creation.
+5. Audio Processing Handler
+   - **Functionality**: Extracts musical features from audio files.
+   - **Implementation**: Utilizes LibROSA for pitch detection and other audio analyses.
+6. Spleeter API
+   - **Functionality**: Separates vocal and accompaniment tracks.
+   - **Implementation**: Applies Spleeter for audio source separation.
+
 
 # APIs and Controller
 
