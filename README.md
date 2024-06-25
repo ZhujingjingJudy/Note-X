@@ -5,11 +5,33 @@ Music API: https://github.com/cuthbertLab/music21.git
 # Model and Engine
 
 # APIs and Controller
+upload audio file
+format conversion
+pre-processing(noise reduction)
+
+?
+separate vocal and accompaniment 
+pitch detection
+
+---
+convert audio data into sheet music
+generate sheet music and support edit it on ui real time audio output
+
+output pdf format/other
+save and share the sheet music
+
+process audio and convert it into sheet music, display result notation w/ accurate pitch and rhythm allow user to preview and edit transcription
+sheet music editing interface:
+add, delete, modify notes directly, change updated in real time
 
 **Request Parameters**
 | Key        | Location | Type   | Description      |
 | ---------- | -------- | ------ | ---------------- |
 | `username` | Session Cookie| String | Current User |
+| `upload_file` | Body | File | Audio file uploaded by User |
+| `audio_process` | Body | Bool | Begin to process audio file |
+| `editing_transcription` | Body | JSON | Editing Actions and Position |
+| `output_format` | Body | String | Desired output format(e.g., PDF) |
 
 **Response Codes**
 | Code              | Description            |
@@ -19,52 +41,49 @@ Music API: https://github.com/cuthbertLab/music21.git
 
 **Returns**
 
-*If no user is logged in or no posts created by user*
+*If no song uploaded by user*
 | Key        | Location       | Type   | Description  |
 | ---------- | -------------- | ------ | ------------ |
-| `popular_songs` | JSON | List of Spotify Track IDs | Top 25 songs on Spotify in the United States |
+| `recent_open` | JSON | list | Linkd to recently opened files(0 to 3) |
 
-*For logged-in users with 1 or more posts created*
+*For uploaded song*
 | Key        | Location       | Type   | Description  |
 | ---------- | -------------- | ------ | ------------ |
-| `attribute_recommendations` | JSON |List of Spotify Track IDs | Attribute-based recommendations (random genres) |
-| `genre_recommendations` | JSON | List of Spotify Track IDs | Attribute and genre-based recommendations based on user's favorite genres |
-| `artist_recommendations` | JSON | List of Spotify Track ID | Attribute and artist-based recommendations based on user's favorite artists | 
-| `attribute_error` | JSON | Dictionary | contains the average error % for each attribute between recommendation and the user's attribute vector. | 
+| `audio_file_after_noise_reduction` | JSON | File | Audio file after noise reduction |
+| `vocal_audio` | JSON | File | Separated vocal audio file | 
+| `accompaniment_audio` | JSON | File | Separated accompaniment audio file | 
+| `pitch_analysis` | JSON | JSON | Pitch analysis data |
+| `sheet_music` | JSON | JSON | Sheet music data |
+| `output_file` | JSON | File | File in output format |
 
 **Example**
 ~~~ 
-curl -b cookies.txt -c cookies.txt -X GET https://OUR_SERVER/recommendations/'
+curl -b cookies.txt -c cookies.txt -X POST https://OUR_SERVER/process_audio/ \
+-H "Content-Type: multipart/form-data" \
+-F "upload_file=@path/to/audiofile.wav" \
+-F "audio_process=noise_reduction,vocal_separation" \
+-F "output_format=pdf"
+
 
 {
-    "attribute_error": {
-        "acousticness": 0.1342,
-        "danceability": 0.2567,
-        "energy": 0.1144,
-        "instrumentalness": 0.021,
-        "liveness": 0.0324,
-        "loudness": 0.0084,
-        "speechiness": 0.0528,
-        "tempo": 0.0446,
-        "valence": 0.1538
+    "audio_file_in_required_format": "https://OUR_SERVER/files/audiofile.mp3",
+    "audio_file_after_noise_reduction": "https://OUR_SERVER/files/audiofile_noise_reduced.mp3",
+    "vocal_audio": "https://OUR_SERVER/files/audiofile_vocal.mp3",
+    "accompaniment_audio": "https://OUR_SERVER/files/audiofile_accompaniment.mp3",
+    "pitch_analysis": {
+        "pitches": [440, 466.16, 493.88, 523.25, 554.37, 587.33, 622.25, 659.25, 698.46, 739.99, 783.99, 830.61]
     },
-    "attribute_recommendations": [
-        "spotify:track:3joo84oco9CD4dBsKNWRRW",
-        "spotify:track:5DxlyLbSTkkKjJPGCoMo1O",
-        ...
-    ],
-    "genre_recommendations": [
-        "spotify:track:4MzXwWMhyBbmu6hOcLVD49",
-        "spotify:track:0bYg9bo50gSsH3LtXe2SQn",
-        ...
-    ],
-    "artist_recommendations": [
-        "spotify:track:2EjXfH91m7f8HiJN1yQg97",
-        "spotify:track:5o8EvVZzvB7oTvxeFB55UJ",
-        ...
-    ],
-    "url": "/recommendations/"
+    "sheet_music": {
+        "notes": [
+            {"pitch": "A4", "duration": "quarter"},
+            {"pitch": "B4", "duration": "quarter"},
+            {"pitch": "C5", "duration": "quarter"},
+            {"pitch": "D5", "duration": "quarter"}
+        ]
+    },
+    "output_file": "https://OUR_SERVER/files/sheetmusic.pdf"
 }
+
 ~~~
 
 ## Third-Party SDKs
