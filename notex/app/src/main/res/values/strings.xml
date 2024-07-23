@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">notex</string>
+
+    <string name="mosaic">Mosaic</string>
+    <string name="scale_gesture_item">Scale Gesture</string>
+    <string name="guide">Guide</string>
+    <string name="simple_doodle">Simple Edit</string>
+    <string name="middle_doodle">Normal Edit</string>
+    <string name="advanced_doodle">Advanced Edit</string>
+</resources>
