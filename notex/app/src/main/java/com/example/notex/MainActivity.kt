@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editTextUsername: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var buttonSignIn: Button
+    private lateinit var buttonSignUp: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         editTextUsername = findViewById(R.id.editTextUsername)
         editTextPassword = findViewById(R.id.editTextPassword)
         buttonSignIn = findViewById(R.id.buttonSignIn)
+        buttonSignUp = findViewById(R.id.buttonSignUp)
 
         buttonSignIn.setOnClickListener {
             val username = editTextUsername.text.toString()
@@ -29,10 +31,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, HomePageActivity::class.java)
             startActivity(intent)
         }
+
+        buttonSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
-
-
-
-
-
