@@ -63,7 +63,7 @@ class UploadActivity : AppCompatActivity() {
 
         // Add your get started functionality here if needed
         buttonGetStarted.setOnClickListener{
-            val intent = Intent(this, ShowActivity::class.java)
+            val intent = Intent(this, TransActivity::class.java)
             startActivity(intent)
         }
     }
