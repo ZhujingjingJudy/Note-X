@@ -7,4 +7,8 @@
     <string name="simple_doodle">Simple Edit</string>
     <string name="middle_doodle">Normal Edit</string>
     <string name="advanced_doodle">Advanced Edit</string>
+    <string name="post">Post</string>
+    <string name="send">Send</string>
+    <string name="username">YOUR_JACCOUNT</string>
+    <string name="password">Some short sample text.</string>
 </resources>
