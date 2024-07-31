@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         buttonSignIn.setOnClickListener {
             val username = editTextUsername.text.toString()
             val password = editTextPassword.text.toString()
+            val userinfo = UserInfo(username, password)
             postLoginInfo(applicationContext, userinfo)
             // Replace with your actual login logic here
             // For simplicity, assume login is successful
