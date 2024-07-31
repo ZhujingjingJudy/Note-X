@@ -26,11 +26,15 @@ class MainActivity : AppCompatActivity() {
             val username = editTextUsername.text.toString()
             val password = editTextPassword.text.toString()
             val userinfo = UserInfo(username, password)
-            postLoginInfo(applicationContext, userinfo)
-            // Replace with your actual login logic here
-            // For simplicity, assume login is successful
-            val intent = Intent(this, HomePageActivity::class.java)
-            startActivity(intent)
+            postLoginInfo(applicationContext, userinfo,
+                onSuccess = {
+                val intent = Intent(this, HomePageActivity::class.java)
+                startActivity(intent)
+            }, onFail = {
+                runOnUiThread {
+                    Toast.makeText(this, "Wrong Username or Password!", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         buttonSignUp.setOnClickListener {

@@ -1,7 +1,10 @@
 package com.example.notex
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -18,17 +21,22 @@ object UserInfoStore {
 
     private lateinit var queue: RequestQueue
     private const val serverUrl = "http://47.120.9.223:8000/"
-    fun postLoginInfo(context: Context, chatt: UserInfo) {
+    fun postLoginInfo(context: Context, chatt: UserInfo, onSuccess: () -> Unit, onFail: () -> Unit) {
         val jsonObj = mapOf(
             "username" to chatt.username,
             "password" to chatt.password
         )
-        // Log.d("postChatt", "chatt posted!")
-        // chatt.username?.let { Log.d("postChatt", it, ) }
+
         val postRequest = JsonObjectRequest(Request.Method.POST,
             serverUrl+"api/v1/token/", JSONObject(jsonObj),
-            { response -> Log.d("successfulPostChatt", "chatt posted!${response.toString()}") },
-            { error -> Log.e("errorPostChatt", error.toString())}//error.localizedMessage ?: "JsonObjectRequest error") }
+            { response ->
+                Log.d("successfulSignIn", "chatt posted!${response.toString()}")
+                onSuccess()
+            },
+            { error ->
+                Log.e("errorSignIn", error.toString())
+                onFail()
+            }
         )
 
         if (!this::queue.isInitialized) {
@@ -38,17 +46,23 @@ object UserInfoStore {
         Log.d("request", postRequest.toString())
     }
 
-    fun postSignUp(context: Context, chatt: UserInfo, completion: () -> Unit) {
+    fun postSignUp(context: Context, chatt: UserInfo, onSuccess: () -> Unit, onFail: () -> Unit) {
         val jsonObj = mapOf(
             "username" to chatt.username,
-            "password" to chatt.password
+            "password" to chatt.password,
+            "email" to chatt.email
         )
-        // Log.d("postChatt", "chatt posted!")
-        // chatt.username?.let { Log.d("postChatt", it, ) }
+
         val postRequest = JsonObjectRequest(Request.Method.POST,
             serverUrl+"api/v1/users/", JSONObject(jsonObj),
-            { response -> Log.d("successfulPostChatt", "chatt posted!${response.toString()}") },
-            { error -> Log.e("errorPostChatt", error.toString())}//error.localizedMessage ?: "JsonObjectRequest error") }
+            { response ->
+                Log.d("successfulSignUp", "Sign_up${response.toString()}")
+                onSuccess()
+            },
+            { error ->
+                Log.e("errorSignUp", error.toString())
+                onFail()
+            }
         )
 
         if (!this::queue.isInitialized) {
