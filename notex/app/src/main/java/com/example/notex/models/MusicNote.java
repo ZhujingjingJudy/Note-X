@@ -2,13 +2,9 @@ package com.example.notex.models;
 
 public class MusicNote {
     private String pitch;
-    private double duration;
+    private String duration;
 
-    public MusicNote(String pitch, double duration) {
-        this.pitch = pitch;
-        this.duration = duration;
-    }
-
+    // Getters and setters
     public String getPitch() {
         return pitch;
     }
@@ -17,11 +13,12 @@ public class MusicNote {
         this.pitch = pitch;
     }
 
-    public double getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 }
+
