@@ -32,11 +32,11 @@
 
     <TextView
         android:id="@+id/textView_xml"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="XML Data will be displayed here"
+        android:text="Sheet Music would be displayed below"
         app:layout_constraintTop_toBottomOf="@id/button_upload"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
