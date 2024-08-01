@@ -44,6 +44,17 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val logininfo = UserInfo(username, password, email)
+
+            postSignUp(applicationContext, logininfo, onSuccess = {
+                val intent = Intent(this, HomePageActivity::class.java)
+                startActivity(intent)
+            }, onFail = {
+                runOnUiThread {
+                    Toast.makeText(this, "Error Sign Up", Toast.LENGTH_SHORT).show()
+                }
+            })
+
         }
     }
 }

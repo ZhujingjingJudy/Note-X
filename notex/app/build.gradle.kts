@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding=true
+    }
 }
 
 dependencies {
@@ -50,6 +53,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
