@@ -49,8 +49,8 @@ class SignUpActivity : AppCompatActivity() {
             val logininfo = UserInfo(username, password, email)
 
             postSignUp(applicationContext, logininfo, onSuccess = {
+                saveUsernameToPreferences(username)
                 val intent = Intent(this, HomePageActivity::class.java)
-                intent.putExtra("username", username)
                 startActivity(intent)
             }, onFail = {
                 runOnUiThread {
@@ -58,6 +58,13 @@ class SignUpActivity : AppCompatActivity() {
                 }
             })
 
+        }
+    }
+    private fun saveUsernameToPreferences(username: String) {
+        val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("username", username)
+            apply()
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.notex.UserInfoStore.postLoginInfo
 import android.Manifest
+import android.content.Context
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveUsernameToPreferences(username: String) {
+        val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("username", username)
+            apply()
+        }
+    }
+
     // 执行需要权限的操作
     private fun performActionWithPermission() {
         // 在这里放置需要存储权限的代码
@@ -67,14 +76,14 @@ class MainActivity : AppCompatActivity() {
             val userinfo = UserInfo(username, password)
             postLoginInfo(applicationContext, userinfo,
                 onSuccess = {
+                    saveUsernameToPreferences(username)
                     val intent = Intent(this, HomePageActivity::class.java)
-                    intent.putExtra("username", username)
                     startActivity(intent)
-                }, onFail = {
-                    runOnUiThread {
-                        Toast.makeText(this, "Wrong Username or Password!", Toast.LENGTH_SHORT).show()
-                    }
-                })
+            }, onFail = {
+                runOnUiThread {
+                    Toast.makeText(this, "Wrong Username or Password!", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         buttonSignUp.setOnClickListener {
@@ -82,5 +91,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
 
 }
