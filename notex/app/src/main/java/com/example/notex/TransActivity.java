@@ -149,9 +149,11 @@ public class TransActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         try {
                             byte[] imageBytes = response.body().bytes();
-//                            textViewXml.setText(xmlString);
-//                            parseXml(xmlString);
-//                            generateMusicImage();
+                            if (imageBytes.length == 0) {
+                                Log.e("TransActivity", "Received empty image bytes");
+                                Toast.makeText(TransActivity.this, "Received empty image bytes", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                             if (bitmap == null) {
                                 Log.e("TransActivity", "Bitmap is null after decoding");
@@ -183,7 +185,7 @@ public class TransActivity extends AppCompatActivity {
 
     private void saveImage(Bitmap bitmap) {
         String savedImagePath = null;
-        String imageFileName = "music_score.png";
+        String imageFileName = System.currentTimeMillis() + "_music_score.png";
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MusicScores");
 
         boolean success = true;
@@ -204,14 +206,6 @@ public class TransActivity extends AppCompatActivity {
             }
         }
     }
-    private void loadImage(String imageUrl) {
-        Glide.with(this)
-                .load(imageUrl)
-                .into(imageView);
-
-        saveImageToExternalStorage(imageUrl);
-    }
-
     private void saveImageToExternalStorage(String imageUrl) {
         Glide.with(this)
                 .asBitmap()
@@ -220,7 +214,7 @@ public class TransActivity extends AppCompatActivity {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         try {
-                            String fileName = "music_notation.png";
+                            String fileName = System.currentTimeMillis() + "_music_score.png";
                             File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
                             if (!storageDir.exists()) {
