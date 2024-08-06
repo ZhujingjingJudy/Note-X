@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             postLoginInfo(applicationContext, userinfo,
                 onSuccess = {
                 val intent = Intent(this, HomePageActivity::class.java)
+                intent.putExtra("username", username)
                 startActivity(intent)
             }, onFail = {
                 runOnUiThread {

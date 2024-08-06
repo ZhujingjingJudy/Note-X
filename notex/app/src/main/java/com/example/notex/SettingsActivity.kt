@@ -33,6 +33,14 @@ class SettingsActivity : AppCompatActivity() {
         changeNameButton = findViewById(R.id.changeNameButton)
         logoutButton = findViewById(R.id.logoutButton)
 
+        val username = intent.getStringExtra("username")
+        if (username != null) {
+            Log.d("UserNameSetted", username)
+            currentNameTextView.text = "ID: $username"
+        }else{
+            Log.d("NoUserName", "noName")
+        }
+
         changeProfilePictureButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)

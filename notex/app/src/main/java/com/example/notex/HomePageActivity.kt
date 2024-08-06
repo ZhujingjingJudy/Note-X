@@ -38,7 +38,9 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         buttonSettings.setOnClickListener {
+            val username = intent.getStringExtra("username")
             val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
         btnEdit.setOnClickListener {
