@@ -33,7 +33,9 @@ class SettingsActivity : AppCompatActivity() {
         changeNameButton = findViewById(R.id.changeNameButton)
         logoutButton = findViewById(R.id.logoutButton)
 
-        val username = intent.getStringExtra("username")
+        val sharedPref = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val username = sharedPref.getString("username", "Default")
+        
         if (username != null) {
             Log.d("UserNameSetted", username)
             currentNameTextView.text = "ID: $username"
