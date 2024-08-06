@@ -2,6 +2,7 @@ package com.example.notex;
 
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -162,8 +165,7 @@ public class TransActivity extends AppCompatActivity {
                             }
                             imageView.setImageBitmap(bitmap);
                             saveImage(bitmap);
-                            imageView.setImageBitmap(bitmap);
-                            saveImage(bitmap);
+
                         } catch (IOException e) {
                             Toast.makeText(TransActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
                         }
@@ -186,24 +188,31 @@ public class TransActivity extends AppCompatActivity {
     private void saveImage(Bitmap bitmap) {
         String savedImagePath = null;
         String imageFileName = System.currentTimeMillis() + "_music_score.png";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MusicScores");
 
-        boolean success = true;
-        if (!storageDir.exists()) {
-            success = storageDir.mkdirs();
-        }
-        if (success) {
-            File imageFile = new File(storageDir, imageFileName);
-            savedImagePath = imageFile.getAbsolutePath();
+        // 使用 MediaStore API 保存图像
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, imageFileName);
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, imageFileName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MusicScores"); // 保存到相册的子目录
+
+        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        if (uri != null) {
             try {
-                FileOutputStream fOut = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-                fOut.close();
-                Toast.makeText(this, "Image saved to Downloads/MusicScores", Toast.LENGTH_SHORT).show();
+                OutputStream outputStream = getContentResolver().openOutputStream(uri);
+                if (outputStream != null) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+                    Toast.makeText(this, "Image saved to Gallery/MusicScores", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            Toast.makeText(this, "Failed to create new MediaStore entry", Toast.LENGTH_SHORT).show();
         }
     }
     private void saveImageToExternalStorage(String imageUrl) {
