@@ -19,7 +19,7 @@ class HomePageActivity : AppCompatActivity() {
         val buttonHistory: ImageButton = findViewById(R.id.buttonHistory)
         val buttonSearch: ImageButton = findViewById(R.id.buttonSearch)
         val buttonSettings: ImageButton = findViewById(R.id.buttonSettings)
-        val btnEdit: Button = findViewById(R.id.button)
+//        val btnEdit: Button = findViewById(R.id.button)
 
         buttonUpload.setOnClickListener {
             // Navigate to UploadActivity
@@ -33,7 +33,7 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         buttonSearch.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
+            val intent = Intent(this, ChartActivity::class.java)
             startActivity(intent)
         }
 
@@ -41,9 +41,9 @@ class HomePageActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
-        btnEdit.setOnClickListener {
-            val intent = Intent(this, ChartActivity::class.java)
-            startActivity(intent)
-        }
+//        btnEdit.setOnClickListener {
+//            val intent = Intent(this, ChartActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 }
