@@ -140,14 +140,14 @@ curl -b cookies.txt -c cookies.txt -X POST https://OUR_SERVER/process_audio/ \
 # View UI/UX
 
 # Team Roster
-Lingyu Qi: Project Management and UI-Interface Design
+Lingyu Qi: Project Management and Sheet Music Editing Design
 
-Yifan Jia: Database Management
+Yifan Jia: Sheet Music Editing Design
 
-Marco Souza: Front-end Design and Development
+Marco Souza: UI-Interface Design and Development
 
-Yue Huang: Audio Processing
+Yue Huang: User Identification Implementation and Database Development
 
-Jingjing Zhu: Sheet Music Transcribing Algorithm Design
+Jingjing Zhu: Pitsch Detection and Sheet Music Transcribing Algorithm Design
 
-Shuangyu Lei: Pitch Detection
+Shuangyu Lei: Server Development and Multi-type Music Handling
